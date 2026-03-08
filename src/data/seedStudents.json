@@ -1,0 +1,102 @@
+[
+  {
+    "_id": "stu-001",
+    "name": "Ahmed Khan",
+    "fatherName": "Mohammad Khan",
+    "phone": "03001234567",
+    "grade": "10th",
+    "feeStatus": "Paid",
+    "createdAt": "2025-09-01T08:00:00.000Z",
+    "updatedAt": "2025-09-15T10:30:00.000Z"
+  },
+  {
+    "_id": "stu-002",
+    "name": "Sara Ali",
+    "fatherName": "Ali Raza",
+    "phone": "03119876543",
+    "grade": "9th",
+    "feeStatus": "Pending",
+    "createdAt": "2025-09-02T09:00:00.000Z",
+    "updatedAt": "2025-09-02T09:00:00.000Z"
+  },
+  {
+    "_id": "stu-003",
+    "name": "Bilal Hussain",
+    "fatherName": "Hussain Ahmed",
+    "phone": "03211112222",
+    "grade": "8th",
+    "feeStatus": "Paid",
+    "createdAt": "2025-09-03T07:30:00.000Z",
+    "updatedAt": "2025-10-01T11:00:00.000Z"
+  },
+  {
+    "_id": "stu-004",
+    "name": "Fatima Noor",
+    "fatherName": "Noor Mohammad",
+    "phone": "03331234567",
+    "grade": "10th",
+    "feeStatus": "Pending",
+    "createdAt": "2025-09-04T08:15:00.000Z",
+    "updatedAt": "2025-09-04T08:15:00.000Z"
+  },
+  {
+    "_id": "stu-005",
+    "name": "Usman Tariq",
+    "fatherName": "Tariq Mehmood",
+    "phone": "03451239876",
+    "grade": "7th",
+    "feeStatus": "Paid",
+    "createdAt": "2025-09-05T10:00:00.000Z",
+    "updatedAt": "2025-11-20T14:45:00.000Z"
+  },
+  {
+    "_id": "stu-006",
+    "name": "Ayesha Siddiqui",
+    "fatherName": "Siddiqui Anwar",
+    "phone": "03009998877",
+    "grade": "6th",
+    "feeStatus": "Pending",
+    "createdAt": "2025-09-06T09:45:00.000Z",
+    "updatedAt": "2025-09-06T09:45:00.000Z"
+  },
+  {
+    "_id": "stu-007",
+    "name": "Hassan Raza",
+    "fatherName": "Raza Shah",
+    "phone": "03127654321",
+    "grade": "9th",
+    "feeStatus": "Paid",
+    "createdAt": "2025-09-07T11:30:00.000Z",
+    "updatedAt": "2025-12-01T09:00:00.000Z"
+  },
+  {
+    "_id": "stu-008",
+    "name": "Zainab Malik",
+    "fatherName": "Malik Imran",
+    "phone": "03221234560",
+    "grade": "8th",
+    "feeStatus": "Pending",
+    "createdAt": "2025-09-08T08:00:00.000Z",
+    "updatedAt": "2025-09-08T08:00:00.000Z"
+  },
+  {
+    "_id": "stu-009",
+    "name": "Omar Farooq",
+    "fatherName": "Farooq Ahmad",
+    "phone": "03341112233",
+    "grade": "10th",
+    "feeStatus": "Paid",
+    "createdAt": "2025-09-09T07:00:00.000Z",
+    "updatedAt": "2026-01-10T16:20:00.000Z"
+  },
+  {
+    "_id": "stu-010",
+    "name": "Maryam Iqbal",
+    "fatherName": "Iqbal Hussain",
+    "phone": "03461239999",
+    "grade": "7th",
+    "feeStatus": "Pending",
+    "createdAt": "2025-09-10T10:15:00.000Z",
+    "updatedAt": "2025-09-10T10:15:00.000Z"
+  }
+]
