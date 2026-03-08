@@ -29,3 +29,17 @@ A modern, fast, and secure School Management System (SMS) built to handle studen
    VITE_FIREBASE_APP_ID=your_app_id
    ```
 4. Run `npm run dev` to start the local server.
+
+## 🗺️ Roadmap & Contributing
+We are currently focused on building out core logic and security. **Please note: UI/Theme-only pull requests will not be merged at this stage.** If you want to contribute, grab one of the following high-priority logic tickets:
+* **Firebase Security Rules:** Write strict production rules so users can only read/write documents where `schoolId === request.auth.uid`.
+* **Async UX:** Implement global loading spinners and skeleton loaders so the UI doesn't show "0 students" while fetching from Firestore.
+* **Data Export:** Build a function to export the filtered student table to a downloadable CSV or PDF file.
+* **Pagination:** Implement Firestore cursor pagination for the students table to handle scaling.
+
+**How to contribute:**
+1. Fork the project.
+2. Create a feature branch (`git checkout -b feature/AmazingLogic`).
+3. Commit your changes (`git commit -m 'feat: added Firebase security rules'`).
+4. Push to the branch (`git push origin feature/AmazingLogic`).
+5. Open a Pull Request.
