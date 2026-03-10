@@ -1,38 +1,34 @@
-import { db } from './db';
-import seedStudents from '../data/seedStudents.json';
-import {auth} from '../firebase.js'
-const COLLECTION = 'students';
+import { auth, db } from "../firebase.js";
 
+const COLLECTION = "students";
+
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 /** Initialize seed data on first run */
 
 export const studentService = {
-  async getStudents() {
-    return db.query(COLLECTION, (s) => s.schoolId === auth.currentUser.uid);
+  async getStudents(grade){
+    if(grade === "All"){
+      const q = query(collection(db,"students"),where("schoolId","==",auth.currentUser.uid),);
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map((doc)=>({ _id: doc.id, ...doc.data()}))
+    } else{
+      console.log("fetcing data for: ", grade)
+      const q = query(collection(db,"students"),where("schoolId","==",auth.currentUser.uid),where("grade","==",grade));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map((doc)=>({ _id: doc.id, ...doc.data()}))
+    }
   },
 
   async addStudent(data) {
-    return db.create(COLLECTION, {
-      name: data.name,
-      fatherName: data.fatherName,
-      phone: data.phone,
-      grade: data.grade,
-      feeStatus: 'Pending',
-      schoolId: auth.currentUser.uid
-    });
-    
-    
+    return addDoc(collection(db, COLLECTION), { ...data, fees: {}, schoolId: auth.currentUser.uid });
   },
 
   async updateStudent(id, data) {
-    return db.update(COLLECTION, id, data);
+    return updateDoc(doc(db, COLLECTION, id), data);
   },
 
   async deleteStudent(id) {
-    return db.remove(COLLECTION, id);
+    return deleteDoc(doc(db, COLLECTION, id));
   },
 
-  async searchStudents(query) {
-    const q = query.toLowerCase();
-    return db.query(COLLECTION, (s) => s.name.toLowerCase().includes(q) &&  s.schoolId === auth.currentUser.uid);
-  },
 };

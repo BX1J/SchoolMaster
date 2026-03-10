@@ -1,3 +1,4 @@
+/** biome-ignore-all assist/source/organizeImports: <explanation> */
 import { GraduationCap, Loader2 } from 'lucide-react';
 import {signInWithGoogle} from "../firebase.js"
 import { useState } from 'react';

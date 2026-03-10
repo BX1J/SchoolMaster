@@ -1,7 +1,8 @@
 // import initializeApp
 import { initializeApp } from "firebase/app";
+import { GoogleAuthProvider, getAuth, onAuthStateChanged ,signInWithPopup ,signOut } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { signOut ,onAuthStateChanged ,getAuth, signInWithRedirect ,GoogleAuthProvider } from "firebase/auth";
+
 // setup the configs for your project
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -21,7 +22,7 @@ onAuthStateChanged(auth, (user) => {
   console.log("you're logged in as: ", user);
   
 });
-export const signInWithGoogle = () => { return signInWithRedirect(auth, new GoogleAuthProvider()) }
+export const signInWithGoogle = () => { return signInWithPopup(auth, new GoogleAuthProvider()) }
 
 
 export const db = getFirestore(app);

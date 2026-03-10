@@ -1,21 +1,23 @@
-import { db } from './db';
-import seedUsers from '../data/seedUsers.json';
+import { auth, db } from '../firebase.js';
 
 const COLLECTION = 'users';
 const SESSION_KEY = 'sms_session';
 
-/** Initialize seed data on first run */
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+
 
 export const authService = {
-  async login(username, password) {
-    const users = await db.getAll(COLLECTION);
-    const user = users.find(
-      (u) => u.username === username && u.password === password
+async login(username, password) {
+    const q = query(
+      collection(db, COLLECTION), 
+      where('username', '==', username), 
+      where('password', '==', password)
     );
-    if (!user) throw new Error('Invalid credentials');
-    const session = { _id: user._id, username: user.username, role: user.role };
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-    return session;
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) throw new Error('Invalid credentials');
+    
+    const userDoc = snapshot.docs[0];
+    return { _id: userDoc.id, ...userDoc.data() };
   },
 
   async logout() {
@@ -28,32 +30,39 @@ export const authService = {
   },
 
   async createStaff(username, password) {
-    const existing = await db.query(COLLECTION, (u) => u.username === username);
-    if (existing.length > 0) throw new Error('Username already exists');
-    return db.create(COLLECTION, {
-      username,
-      password,
-      role: 'staff',
-    });
-  },
+  const q = query(collection(db, COLLECTION), where('username', '==', username));
+  const snapshot = await getDocs(q);
+  
+  if (!snapshot.empty) throw new Error('Username already exists');
+  
+  return addDoc(collection(db, COLLECTION), { 
+    username, 
+    password, 
+    role: 'staff',
+    schoolId: auth.currentUser.uid // <-- THE DEADBOLT
+  });
+},
 
-  async getStaffList() {
-    const staff = await db.query(COLLECTION, (u) => u.role === 'staff');
-    return staff.map(({ password, ...rest }) => rest);
-  },
+
+ async getStaffList() {
+  const q = query(
+    collection(db, COLLECTION), 
+    where('role', '==', 'staff'),
+    where('schoolId', '==', auth.currentUser.uid)
+  );
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+},
 
   async deleteStaff(id) {
-    const user = await db.getById(COLLECTION, id);
-    if (user && user.role === 'staff') {
-      await db.remove(COLLECTION, id);
-    }
+    return deleteDoc(doc(db, COLLECTION, id));
   },
 
   async changePassword(userId, currentPassword, newPassword) {
-    const user = await db.getById(COLLECTION, userId);
+    const user = await getDoc(doc(db, COLLECTION, userId));
     if (!user) throw new Error('User not found');
     if (user.password !== currentPassword) throw new Error('Current password is incorrect');
     if (newPassword.length < 4) throw new Error('New password must be at least 4 characters');
-    await db.update(COLLECTION, userId, { password: newPassword });
+    await updateDoc(doc(db, COLLECTION, userId), { password: newPassword });
   },
 };
